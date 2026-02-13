@@ -12,12 +12,12 @@ import lombok.ToString;
 @Setter
 @ToString
 @Entity
-public class WiseSaying {
+public class Post {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private int id; // Int
     @Column(length = 100,nullable = false)
-    private String saying; // varchar(255)
-    @Column(length = 50,nullable = false)
-    private String author; // varchar(255)
+    private String title; // varchar(255)
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String content; // varchar(255)
 }
