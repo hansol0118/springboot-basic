@@ -20,4 +20,9 @@ public class Post {
     private String title; // varchar(255)
     @Column(columnDefinition = "TEXT", nullable = false)
     private String content; // varchar(255)
+
+    public Post(String title, String content) {
+        this.content=content;
+        this.title = title;
+    }
 }
