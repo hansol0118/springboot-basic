@@ -10,19 +10,18 @@ import lombok.*;
 @Setter
 @ToString
 @Entity
-@RequiredArgsConstructor
-
+@NoArgsConstructor
 public class Post {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private int id; // Int
     @Column(length = 100,nullable = false)
-    private final String title; // varchar(255)
-    @Column(columnDefinition = "TEXT", nullable = false)
-    private final String content; // varchar(255)
+    private String title;
+    @Column(columnDefinition = "TEXT")
+    private String content;
 
-    public Post() {
-        this.title = "";
-        this.content = "";
-    }
+    public Post(String title, String content) {
+        this.title = title;
+        this.content = content;
+        }
 }
