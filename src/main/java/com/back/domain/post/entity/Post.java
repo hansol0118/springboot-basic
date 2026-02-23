@@ -6,6 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 @Getter
 @Setter
 @ToString
@@ -20,8 +22,11 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    private LocalDateTime createDate;
+    private LocalDateTime modifyDate;
     public Post(String title, String content) {
         this.title = title;
-        this.content = content;
+        this.createDate = LocalDateTime.now();
+        this.modifyDate = LocalDateTime.now();
         }
 }
