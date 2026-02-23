@@ -1,7 +1,6 @@
 package com.back.global;
 
-import com.back.domain.wiseSaying.entity.Post;
-import com.back.domain.wiseSaying.repository.PostRepository;
+import com.back.domain.post.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Bean;
@@ -11,20 +10,31 @@ import org.springframework.context.annotation.Configuration;
 public class BaseInitData {
 
     @Autowired
-    private PostRepository postRepository;
+    private PostService postService;
+
     @Bean
     ApplicationRunner initDataRunner() {
         return args -> {
 
-//            if(postRepository.count() >0){
-//                return;
-//            }
+            work1();
+            work2();
 
-            System.out.println("초기 데이터를 로딩합니다.");
-            Post post1 = new Post("제목1", "내용1");
-            postRepository.save(post1);
-            postRepository.findById(1);
-            // select * from post where id = 1;
         };
     }
+
+    void work1() {
+
+        if(postService.count() > 0) {
+            return;
+        }
+
+        postService.write("제목1", "내용1");
+        postService.write("제목2", "내용2");
+    }
+
+    void work2() {
+        postService.findById(1);
+        // select * from post where id = 1;
+    }
+
 }
