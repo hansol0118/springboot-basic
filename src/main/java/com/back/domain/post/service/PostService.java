@@ -4,23 +4,26 @@ import com.back.domain.post.entity.Post;
 import com.back.domain.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
-
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor// @Component랑 같은 기능
 public class PostService {
 
     private final PostRepository postRepository;
 
-    //    public PostService(PostRepository postRepository){
-//        this.postRepository = postRepository;
-//    }
-
     public Post write(String title, String content) {
 
-        Post post = new Post(title,content);
+        Post post = new Post(title, content);
+        return postRepository.save(post);
+    }
+
+    @Transactional
+    public Post modify(Post post, String newTitle, String newContent) {
+        post.setTitle(newTitle);
+        post.setContent(newContent);
         return postRepository.save(post);
     }
 
