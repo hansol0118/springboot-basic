@@ -4,27 +4,25 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 @Getter
 @Setter
 @ToString
 @Entity
-@NoArgsConstructor
+@RequiredArgsConstructor
+
 public class Post {
     @Id
     @GeneratedValue(strategy = jakarta.persistence.GenerationType.IDENTITY)
     private int id; // Int
     @Column(length = 100,nullable = false)
-    private String title; // varchar(255)
+    private final String title; // varchar(255)
     @Column(columnDefinition = "TEXT", nullable = false)
-    private String content; // varchar(255)
+    private final String content; // varchar(255)
 
-    public Post(String title, String content) {
-        this.content=content;
-        this.title = title;
+    public Post() {
+        this.title = "";
+        this.content = "";
     }
 }
