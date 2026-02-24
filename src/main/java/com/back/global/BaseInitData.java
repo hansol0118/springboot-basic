@@ -24,7 +24,7 @@ public class BaseInitData {
     private final PostService postService;
 
     @Bean
-    ApplicationRunner initDataRunner() {
+    ApplicationRunner devinitData() {
         return args -> {
 
             self.work1();
