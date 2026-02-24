@@ -1,5 +1,7 @@
 package com.back.global.initData;
 
+import com.back.domain.member.entity.Member;
+import com.back.domain.member.service.MemberService;
 import com.back.domain.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.ApplicationRunner;
@@ -15,12 +17,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class TestInitData {
 
     private final PostService postService;
+    private final MemberService memberService;
     @Bean
     ApplicationRunner testInitDataRunner() {
         return args -> {
 
-            postService.write("테스트용 제목1", "테스트용 내용1");
-            postService.write("테스트용 제목2", "테스트용 내용2");
+            Member author1= memberService.findById(3).get();
+            Member author2= memberService.findById(4).get();
+
+            postService.write(author1,"테스트용 제목1", "테스트용 내용1");
+            postService.write(author2, "테스트용 제목2", "테스트용 내용2");
 
             System.out.println("테스트 전용 데이터 생성 완료.");
         };

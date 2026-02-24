@@ -1,5 +1,6 @@
-package com.back.global;
+package com.back.global.initData;
 
+import com.back.domain.member.entity.Member;
 import com.back.domain.member.service.MemberService;
 import com.back.domain.post.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -10,11 +11,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.transaction.annotation.Transactional;
 
-
 @Configuration
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-
 public class BaseInitData {
 
     @Autowired
@@ -25,11 +24,10 @@ public class BaseInitData {
     private final MemberService memberService;
 
     @Bean
-    ApplicationRunner devinitData() {
+    ApplicationRunner devInitData() {
         return args -> {
-
-            self.work1();
             self.work2();
+            self.work1();
         };
     }
 
@@ -40,22 +38,21 @@ public class BaseInitData {
             return;
         }
 
-        // 어떤 기능을 테스트 데이터가 2개인 것을 가정하고 개발
-        postService.write("제목1", "내용1");
+        Member author1= memberService.findById(3).get();
+        Member author2= memberService.findById(4).get();
 
-//        if (true) {
-//            throw new RuntimeException("테스트 예외");
-//        }
-
-        postService.write("제목2", "내용2");
+        postService.write(author1, "제목1", "내용1");
+        postService.write(author2, "제목2", "내용2");
     }
 
     @Transactional
     void work2() {
-        memberService.join("systemUser", "123","시스템");
-        memberService.join("adminUser", "123","관리자");
-        memberService.join("user1", "123","유저1");
-        memberService.join("user2", "123","유저2");
-        memberService.join("user3", "123","유저3");
+
+        memberService.join("systemUser", "1234", "시스템");
+        memberService.join("adminUser", "1234", "관리자");
+        memberService.join("user1", "1234", "유저1");
+        memberService.join("user2", "1234", "유저2");
+        memberService.join("user3", "1234", "유저3");
+
     }
-    }
+}

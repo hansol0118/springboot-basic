@@ -10,6 +10,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class Member extends BaseEntity {
+
     @Column(unique = true)
     private String username;
     @Column(length = 100)

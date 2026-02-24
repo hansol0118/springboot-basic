@@ -1,5 +1,7 @@
 package com.back.domain.post.repository;
 
+import com.back.domain.member.entity.Member;
+import com.back.domain.member.service.MemberService;
 import com.back.domain.post.entity.Post;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class PostRepositoryTest {
     @Autowired
     private PostRepository postRepository;
+    private MemberService memberService;
+
 
     @Test
     @DisplayName("2번 글 조회")
@@ -31,7 +35,8 @@ public class PostRepositoryTest {
     @Test
     @DisplayName("글 생성")
     void t2() {
-        Post post = new Post("제목3","내용3");
+        Member author1= memberService.findById(3).get();
+        Post post = new Post(author1,"제목3","내용3");
         Post savePost = postRepository.save(post);
         assertThat(post.getId()).isEqualTo(3);
         assertThat(post.getTitle()).isEqualTo("제목3");

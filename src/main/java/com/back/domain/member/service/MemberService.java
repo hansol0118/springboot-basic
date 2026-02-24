@@ -5,17 +5,26 @@ import com.back.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class MemberService {
+
     private final MemberRepository memberRepository;
 
-    public Member join(String username, String password, String nickname){
+    public Member join(String username, String password, String nickname) {
+
         Member member = new Member();
         member.setUsername(username);
         member.setPassword(password);
         member.setNickname(nickname);
 
-        return member;
+        return memberRepository.save(member);
+
+    }
+
+    public Optional<Member> findById(int id){
+        return memberRepository.findById(id);
     }
 }
