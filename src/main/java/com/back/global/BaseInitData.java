@@ -1,6 +1,6 @@
 package com.back.global;
 
-import com.back.domain.post.entity.Post;
+import com.back.domain.member.service.MemberService;
 import com.back.domain.post.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +22,7 @@ public class BaseInitData {
     private BaseInitData self;
 
     private final PostService postService;
+    private final MemberService memberService;
 
     @Bean
     ApplicationRunner devinitData() {
@@ -29,8 +30,6 @@ public class BaseInitData {
 
             self.work1();
             self.work2();
-            self.work3();
-
         };
     }
 
@@ -51,14 +50,12 @@ public class BaseInitData {
         postService.write("제목2", "내용2");
     }
 
-    void work2() {
-        postService.findById(1);
-        // select * from post where id = 1;
-    }
-
     @Transactional
-    void work3() {
-        Post post = postService.findById(1).get();
-        postService.modify(post, "제목 1-1", "내용 1-1");
+    void work2() {
+        memberService.join("systemUser", "123","시스템");
+        memberService.join("adminUser", "123","관리자");
+        memberService.join("user1", "123","유저1");
+        memberService.join("user2", "123","유저2");
+        memberService.join("user3", "123","유저3");
     }
-}
+    }
